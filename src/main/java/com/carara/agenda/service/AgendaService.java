@@ -1,5 +1,6 @@
-package com.carara.agenda;
+package com.carara.agenda.service;
 
+import com.carara.agenda.domain.dto.AgendaDto;
 import com.carara.agenda.domain.entity.Agenda;
 import com.carara.agenda.infra.repository.AgendaRepository;
 import lombok.AllArgsConstructor;
@@ -13,15 +14,16 @@ import java.util.Optional;
 public class AgendaService {
     AgendaRepository agendaRepository;
 
-    public Agenda createAgenda(Agenda agenda) {
-        if (agenda.getEndDate()==null) {
-            agenda.setEndDate(LocalDateTime.now().plusMinutes(1));
+    public Agenda createAgenda(AgendaDto agendaDto) {
+
+        if (agendaDto.getEndDate() == null) {
+            agendaDto.setEndDate(LocalDateTime.now().plusMinutes(1));
         }
+        Agenda agenda = new Agenda(agendaDto.getDescription(), agendaDto.getEndDate(), false);
         return agendaRepository.save(agenda);
     }
 
     public Optional<Agenda> findById(Long id) {
         return agendaRepository.findById(id);
-
     }
 }
