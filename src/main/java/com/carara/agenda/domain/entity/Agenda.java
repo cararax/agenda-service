@@ -30,8 +30,7 @@ public class Agenda {
     private String description;
 
     @Future(message = "End date must be in a future time")
-    @NotNull(message = "End date is mandatory")
-    @Column(name = "endDate", nullable = false)
+    @Column(name = "endDate", nullable = true)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endDate;
 
