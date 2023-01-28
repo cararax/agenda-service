@@ -2,10 +2,7 @@ package com.carara.agenda.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -21,13 +18,13 @@ import java.util.Objects;
 @ToString
 @RequiredArgsConstructor
 @Table(name = "agenda")
-public class AgendaEntity {
+public class Agenda {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "description", nullable = false, unique = true)
+    @Column(name = "description", nullable = false, unique = false)
     @NotBlank(message = "Description is mandatory")
     @Size(max = 100, message = "Description must have a maximum of 100 characters")
     private String description;
@@ -35,14 +32,14 @@ public class AgendaEntity {
     @Future(message = "End date must be in a future time")
     @NotNull(message = "End date is mandatory")
     @Column(name = "endDate", nullable = false)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endDate;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        AgendaEntity that = (AgendaEntity) o;
+        Agenda that = (Agenda) o;
         return id != null && Objects.equals(id, that.id);
     }
 
