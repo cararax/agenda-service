@@ -9,3 +9,14 @@ spring:
 server:
   port: 8081
 
+rabbitmq:
+  host: localhost
+  port: '15672'
+  username: guest
+  password: guest
+
+  result:
+    exchange: result.exchange
+    queue: result.queue
+    routingkey: result.routingkey
+
