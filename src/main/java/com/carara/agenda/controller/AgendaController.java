@@ -2,7 +2,10 @@ package com.carara.agenda.controller;
 
 import com.carara.agenda.domain.dto.AgendaDto;
 import com.carara.agenda.domain.entity.Agenda;
+import com.carara.agenda.infra.message.ResultListener;
+import com.carara.agenda.infra.message.response.Result;
 import com.carara.agenda.service.AgendaService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -19,6 +22,7 @@ import java.net.URI;
 public class AgendaController {
 
     AgendaService agendaService;
+    ResultListener resultListener;
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> findById(@PathVariable("id") Long id) {
@@ -42,5 +46,10 @@ public class AgendaController {
         BeanUtils.copyProperties(agendaEntity, agendaDto);
         return ResponseEntity.created(location)
                 .body(agendaDto);
+    }
+
+    @GetMapping("/result/{agendaId}")
+    public Result message(@PathVariable String agendaId) throws JsonProcessingException {
+        return resultListener.listen(Long.valueOf(agendaId));
     }
 }

@@ -1,5 +1,6 @@
 package com.carara.agenda.infra.message;
 
+import com.carara.agenda.infra.message.response.Result;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -23,12 +24,12 @@ public class ResultListener {
 
     ObjectMapper newObjectMapper = new ObjectMapper();
 
-    public void listen(Long agendaId) throws JsonProcessingException {
-        log.info(" [x] Requesting result for " + agendaId);
+    public Result listen(Long agendaId) throws JsonProcessingException {
+        log.info(" [1] Requesting result for " + agendaId);
 
         String reponse = (String) template.convertSendAndReceive(resultExchange.getName(), resulRoutingKey, agendaId);
-//        List<Vote> voteList= newObjectMapper.readValue(reponse, List.class);
-
-        log.info(" [.] Returned ");
+        Result result= newObjectMapper.readValue(reponse, Result.class);
+        log.info(" [4] Returned ");
+        return result;
     }
 }
