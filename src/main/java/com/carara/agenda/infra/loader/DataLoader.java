@@ -19,18 +19,15 @@ public class DataLoader implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         if (agendaRepository.count() == 0) {
-            loadAssociateData();
+            loadAgendaData();
         }
 
     }
 
-    public void loadAssociateData() {
+    public void loadAgendaData() {
         List<Agenda> agendaList = List.of(
                 new Agenda("Instalação de portaria eletrônica", LocalDateTime.now().plusMinutes(5), false),
-                new Agenda("Instalação de painéis solares para gerar energia", LocalDateTime.now().plusMinutes(5), false),
                 new Agenda("Aprovação de novo sistema de gerenciamento de lixo", LocalDateTime.now().plusMinutes(10), false),
-                new Agenda("Mudanças na decoração do hall de entrada", LocalDateTime.now().plusMinutes(15), false),
-                new Agenda("Instalação de nova sala de jogos", LocalDateTime.now().plusMinutes(15), false),
                 new Agenda("Instalação de bicicletário no prédio", LocalDateTime.now().plusMinutes(20), false));
         agendaRepository.saveAll(agendaList);
     }
