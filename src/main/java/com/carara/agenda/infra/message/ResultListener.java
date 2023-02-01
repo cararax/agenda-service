@@ -3,6 +3,7 @@ package com.carara.agenda.infra.message;
 import com.carara.agenda.infra.message.response.Result;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.AmqpIllegalStateException;
 import org.springframework.amqp.core.DirectExchange;
@@ -10,7 +11,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
-@Slf4j(topic = "ResultListener")
+@Log4j2(topic = "ResultListener")
 public class ResultListener {
     @Autowired
     private RabbitTemplate template;
