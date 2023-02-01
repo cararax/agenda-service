@@ -47,9 +47,4 @@ public class AgendaController {
         return ResponseEntity.created(location)
                 .body(agendaDto);
     }
-
-    @GetMapping("/result/{agendaId}")
-    public Result message(@PathVariable String agendaId) throws JsonProcessingException {
-        return resultListener.listen(Long.valueOf(agendaId));
-    }
 }
