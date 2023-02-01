@@ -17,6 +17,7 @@ import java.util.List;
 public class SchedulerService {
 
     AgendaRepository agendaRepository;
+    AgendaService agendaService;
     ResultListener resultListener;
 
     @Scheduled(cron = "1 * * * * *")
@@ -29,7 +30,7 @@ public class SchedulerService {
             try {
                 Result result = resultListener.listen(agendaId.getId());
                 if (result != null) {
-                    agendaRepository.updateResultCalculatedById(true, agendaId.getId());
+                    agendaService.updateResultCalculatedToTrue(agendaId.getId());
                 }
             } catch (JsonProcessingException e) {
                 throw new RuntimeException("Error processing result");

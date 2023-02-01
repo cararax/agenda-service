@@ -26,4 +26,8 @@ public class AgendaService {
     public Optional<Agenda> findById(Long id) {
         return agendaRepository.findById(id);
     }
+
+    public void updateResultCalculatedToTrue(Long agendaId) {
+        agendaRepository.updateResultCalculatedById(true, agendaId);
+    }
 }
