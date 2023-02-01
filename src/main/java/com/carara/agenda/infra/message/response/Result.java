@@ -31,11 +31,6 @@ public class Result {
     @NotNull
     @Column(name = "winner", nullable = false)
     private Winner winner;
-    //todo: veririicar se é possivel string
-//    private String winner;
-
-// todo: adicionar em um dto
-//    private List<VoteScore> voteScore = new ArrayList<>();
 
     @NotNull
     public boolean equals(Object o) {

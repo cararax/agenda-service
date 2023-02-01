@@ -8,6 +8,7 @@ import com.carara.agenda.service.AgendaService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import java.net.URI;
 @RestController
 @RequestMapping("/agendas")
 @AllArgsConstructor
+@Log4j2(topic = "AgendaController")
 public class AgendaController {
 
     AgendaService agendaService;
@@ -26,6 +28,7 @@ public class AgendaController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> findById(@PathVariable("id") Long id) {
+        log.info("Find agenda by id: " + id);
         return agendaService.findById(id)
                 .<ResponseEntity<Object>>map(agenda -> {
                     AgendaDto dto = new AgendaDto(agenda.getDescription(), agenda.getEndDate());
@@ -44,6 +47,7 @@ public class AgendaController {
                 .buildAndExpand(agendaEntity.getId())
                 .toUri();
         BeanUtils.copyProperties(agendaEntity, agendaDto);
+        log.info("Agenda created: " + agendaEntity.toString());
         return ResponseEntity.created(location)
                 .body(agendaDto);
     }
